@@ -3,6 +3,7 @@ from tkinter import *
 from sim_staff_window import manage_window
 import initial_load_data as ild
 from sim_login_window import login_manager as lm
+import communicator
 import simulation_time
 import working_data
 from icecream import ic
@@ -44,13 +45,7 @@ class sim_staff_window_manager:
         :param log_window: no longer in use but kept around incase it might be useful in the future.  This is a
         reference to the log window information can be displayed
         :type log_window: tk window
-        :param controller: a reference to the controller class used to send data back and forth from the UI
-        :type controller: module
-        :param sim_time: a reference to the system_time module used for recording current time in the simulation
-        :type sim_time: module
         """
-        # self.controller = controller
-        # self.sim_time = sim_time
         self.root = master
         self.log_window_pointer = log_window
         self.horizontal_spacing = 0
@@ -65,8 +60,6 @@ class sim_staff_window_manager:
 
     def create_home_screen(self):
         """In charge of the creation of a new window to be displayed on the screen
-        :param v: is a value used for the vertical spacing of the staffers windows in the UI
-        :type v: str
         :return: a reference to a window so it can be edited in the future
         :rtype: Window"""
         if self.window_count % 4 == 0:
@@ -92,15 +85,8 @@ class sim_staff_window_manager:
         those staff members"""
         for staff in ild.staffers:
             window = self.create_home_screen()
-            staff_info = ild.staffers.get(staff)
-            device_id = ild.staff_device.get(staff)
             ild.staffer_login_info.get(staff).__setitem__(1, True)
-            self.staff_dict[device_id] = manage_window(window, staff_info,
-                                                       device_id, self.root, self.home)
-
-            self.staff_dict[device_id].clear_window()
-            self.staff_dict[device_id].set_home()
-            self.staff_dict[device_id].poll_controller()
+            self.login_success(staff, window)
             self.window_count += 1
 
     def login_success(self, staffer_id, window):
@@ -110,8 +96,7 @@ class sim_staff_window_manager:
         :type staffer_id: str
         :param window: a reference to the associated tkinter window
         :type window: tk window"""
-
-        device_id = ild.staff_device.get(staffer_id)
+        device_id = communicator.give_device_id(staffer_id)
         staff_info = ild.staffers.get(staffer_id)
         self.staff_dict[device_id] = manage_window(window, staff_info,
                                                    device_id, self.root, self.home)
@@ -119,6 +104,7 @@ class sim_staff_window_manager:
         self.staff_dict[device_id].clear_window()
         self.staff_dict[device_id].set_home()
         self.staff_dict[device_id].poll_controller()
+        ic(working_data.pe_outs)
 
     def add_home(self, home):
         """Sets a reference to home_screen that is later passed to the staffer windows so data can be sent back to

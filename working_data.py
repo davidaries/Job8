@@ -19,22 +19,6 @@ token_status_dict ={}
 flow_data = {}
 
 
-# when a staff member signs in with a device the device needs an empty dictionary
-# these pe_outs rows will go away when we have a staff sign in process as the empty dictionary will be created then
-pe_outs['123'] = {}
-pe_outs['234'] = {}
-pe_outs['345'] = {}
-pe_outs['456'] = {}
-pe_outs['567'] = {}
-pe_outs['678'] = {}
-pe_outs['789'] = {}
-pe_outs['987'] = {}
-pe_outs['876'] = {}
-pe_outs['765'] = {}
-pe_outs['654'] = {}
-pe_outs['543'] = {}
-
-
 # adat is a dictionary where the key is the person, and then each person is a dictionary
 # where the key is k, and value is a list with lists (inner lists) within.
 # each of the inner lists has the following seven fields.

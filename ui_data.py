@@ -18,6 +18,7 @@ class ui_data:
     :type self.token_repost_time: dict (key = token, value = repost_time)
     :param self.tokens_completed: a list of tokens completed by a staffer
     :type self.tokens_completed: list"""
+
     def __init__(self):
         self.token_list = []
         self.name_row = {}
@@ -100,7 +101,7 @@ class ui_data:
         """adds a person to the dictionary associating their name with the current row they are being displayed on
         !!REWORK this as the row is no longer needed with the addition of the organize task function!!
         :param """
-        self.name_row[name] = row+1
+        self.name_row[name] = row + 1
 
     def check_in_display(self, name):
         """Checks to see if a person's name is already being displayed on the staffers screen.  If they are already being
@@ -119,28 +120,28 @@ class ui_data:
         :param tasks: the task and associated information of the task
         :type tasks: dict
         :param device_id: the id number of the device
-        :type device_id int
+        :type device_id: str
         :return: a list of ordered tasks
         :rtype: list"""
         priority_tasks = {}
         person_tasks = {}
-        ordered_tokens=[]
+        ordered_tokens = []
         ic(tasks)
         ic(device_id)
         try:
             for t in tasks:
                 if t not in self.tokens_completed:
-                    priority_tasks[t]=tasks.get(t)[2]
-            tuple_tasks = sorted(priority_tasks.items(), key =lambda item: item[1])
+                    priority_tasks[t] = tasks.get(t)[2]
+            tuple_tasks = sorted(priority_tasks.items(), key=lambda item: item[1])
             ic(tuple_tasks)
-            for tup in tuple_tasks: #create list based on priority
+            for tup in tuple_tasks:  # create list based on priority
                 ordered_tokens.append(tup[0])
-            for token in ordered_tokens: #organize for name
+            for token in ordered_tokens:  # organize for name
                 person_id = wd.pe_outs[str(device_id)].get(token)[0]
                 if person_id in person_tasks:
                     person_tasks[person_id].append(token)
                 else:
-                    person_tasks[person_id]=[token]
+                    person_tasks[person_id] = [token]
             flat_dict = list(person_tasks.values())
             ordered_tokens = [token for subl in flat_dict for token in subl]
             return ordered_tokens

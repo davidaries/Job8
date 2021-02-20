@@ -68,7 +68,7 @@ class manage_window:
         :param staffer: the information about the staffer who has logged into this window
         :type staffer: list
         :param device_id: the unique id number of the device that is logged into a window
-        :type device_id: int
+        :type device_id: str
         :param root: a reference to the root window for the UI
         :type root: Tkinter window
         :param home: reference to the sim_staff_window_manager.py module so functions can be called within manage_window

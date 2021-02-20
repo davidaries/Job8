@@ -2,6 +2,7 @@
    In the future such data will be loaded from tables, not come from this module.
 """
 
+
 # PROTOCOL TABLE DATA ###############################################################
 # We will be loading from a protocol table, which has these fields
 # protocol, step, step_type, description, task, task_type, spec, write, flow
@@ -82,12 +83,9 @@ staffers = {                # a primitive dictionary for staffers that will do f
     }
 
 # these next two rows to be dynamically generated when we have staff login in place.
-staff_device = {'s001': 123, 's002': 234, 's003': 345, 's004': 456,
-                's005': 567, 's006': 678, 's007': 789, 's008': 987,
-                's009': 876, 's010': 765, 's011': 654, 's012': 543}
-device_staff = {123: 's001', 234: 's002', 345: 's003', 456: 's004',
-                567: 's005', 678: 's006', 789: 's007', 987: 's008',
-                876: 's009', 765: 's010', 654: 's011', 543: 's012'}
+staff_device = {}
+
+device_staff = {}
 
 staffer_login_info = {'s001': ['pass', False], 's002': ['pass', False],
                       's003': ['pass', False], 's004': ['pass', False],
@@ -98,5 +96,5 @@ staffer_login_info = {'s001': ['pass', False], 's002': ['pass', False],
                       }
 
 # PERSON RELATED DATA ###############################################################
-entrants = [['07:02', 'pers101'],  ['07:05', 'pers102'],  ['07:50', 'pers103'],   # what time they enter the clinic
+entrants = [['07:20', 'pers101'],  ['07:25', 'pers102'],  ['07:50', 'pers103'],   # what time they enter the clinic
             ['08:00', 'pers104'],  ['08:15', 'pers105'],  ['08:30', 'pers106']]

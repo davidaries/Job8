@@ -7,8 +7,11 @@ import initial_load_data as ild
 import simulation_time
 import working_data as wd
 import get_responsible_staff as grs
+import random
 from icecream import ic
 
+possible_device_ids = ['%03d'% val for val in range(1000)]
+random.shuffle(possible_device_ids)
 
 def update_log(token, device_id, status, comments, priority):
     """Appends additional log information to the task in question (with token being the key for the log data
@@ -128,3 +131,15 @@ def pause_tasks(staff_id, token, status):
     :param status: the dictionary reference to the status of the of the task
     :type status: str (~vocab)"""
     wd.pe_outs.get(str(staff_id)).get(token)[8] = status
+
+def give_device_id(staff_id):
+    """pops a possible device_id from a randomly sorted list of possible device_ids.  It then adds this device_id
+    to initial_data_loads staff_device and device_staff dictionaries and creates pe_outs table based on the device_id.
+    The device id is then returned to the sim_staff_window_manager
+    :return: the randomly generated device_id
+    :rtype: str"""
+    device_id = possible_device_ids.pop()
+    ild.staff_device[staff_id]= device_id
+    ild.device_staff[device_id] = staff_id
+    wd.pe_outs[device_id] = {}
+    return device_id
